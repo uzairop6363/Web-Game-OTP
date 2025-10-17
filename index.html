@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pak Wings - Game Lobby</title>
+    <title>pakwings.net</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,10 +47,12 @@
             align-items: center;
         }
         .header-logo {
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.8em;
+            /* font-family: 'Fredoka One', cursive; /* Text logo ke liye tha, ab image hai */
+            /* font-size: 1.8em;
             font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2); */
+            height: 40px; /* Logo image ki height control karein */
+            object-fit: contain; /* Image ko box ke andar theek se fit kare */
         }
         .header-search {
             text-align: center;
@@ -82,8 +84,8 @@
             color: var(--text-dark);
         }
         .icon-item .icon-placeholder {
-            width: 50px;
-            height: 50px;
+            width: 60px; /* Icon placeholder ka size bara kiya */
+            height: 60px; /* Icon placeholder ka size bara kiya */
             border-radius: 50%;
             background-color: var(--light-green);
             display: grid;
@@ -91,8 +93,8 @@
         }
         /* Style for custom icon images */
         .icon-placeholder img {
-            width: 30px; /* Adjust size as needed */
-            height: 30px;
+            width: 40px; /* Icon image ka size bara kiya */
+            height: 40px; /* Icon image ka size bara kiya */
             object-fit: contain;
         }
 
@@ -103,6 +105,7 @@
         /* === SLIDER CSS START === */
         .slider-container {
             width: 100%;
+            height: 180px; /* Slider ki height bara di */
             border-radius: 10px;
             overflow: hidden; /* This hides the other slides */
             position: relative;
@@ -110,13 +113,17 @@
         .slider-wrapper {
             display: flex;
             width: 500%; /* 100% for each of the 5 slides */
+            height: 100%; /* Wrapper height container jitni */
             transition: transform 0.5s ease-in-out; /* Smooth sliding animation */
         }
         .slide {
             width: 20%; /* Each slide takes up 1/5th of the wrapper */
+            height: 100%; /* Slide height wrapper jitni */
         }
         .slide img {
             width: 100%;
+            height: 100%; /* Image height slide jitni */
+            object-fit: cover; /* Image ko poora fit karega */
             display: block; /* Removes any bottom space under the image */
         }
         /* === SLIDER CSS END === */
@@ -198,8 +205,8 @@
             font-size: 1.8em;
             color: var(--primary-green);
             margin-bottom: 5px;
-            width: 40px; /* Set a fixed width */
-            height: 40px; /* Set a fixed height */
+            width: 40px; /* Fixed width for Deposit, Withdraw, VIP, More icons */
+            height: 40px; /* Fixed height for Deposit, Withdraw, VIP, More icons */
             margin-left: auto;
             margin-right: auto;
         }
@@ -330,7 +337,7 @@
 <body>
 
     <header class="header">
-        <div class="header-logo clickable">Pak Wings</div>
+        <img src="images/logo_pakwings.jpg" alt="Pak Wings Logo" class="header-logo clickable">
         <div class="header-search clickable">
             <i class="fas fa-search"></i>
             <div>Search</div>
@@ -468,12 +475,11 @@
             const totalSlides = 5;
 
             function nextSlide() {
-                currentSlide = (currentSlide + 1) % totalSlides; // This will loop from 0, 1, 2, 3, 4, and back to 0
-                const offset = currentSlide * -20; // Each slide is 20% wide
+                currentSlide = (currentSlide + 1) % totalSlides;
+                const offset = currentSlide * -20;
                 sliderWrapper.style.transform = `translateX(${offset}%)`;
             }
 
-            // Change slide every 3 seconds (3000 milliseconds)
             setInterval(nextSlide, 3000);
             // === SLIDER JAVASCRIPT END ===
         });
