@@ -17,11 +17,11 @@
             --background-grey: #f0f2f5;
             --text-dark: #333;
             --text-light: #888;
-            --active-red: #d93025;
+            --active-red: #d93025; /* Ye raha red color jo use hoga */
             --badge-yellow: #ffc107;
             --badge-red: #d93025;
-            --border-grey: #e0e0e0; /* New border color */
-            --required-red: #d93025; /* New red for * */
+            --border-grey: #e0e0e0; 
+            --required-red: #d93025; 
         }
 
         * {
@@ -35,12 +35,11 @@
             background-color: var(--background-grey);
             color: var(--text-dark);
             padding-bottom: 80px; 
-            /* Stop body scrolling when panel is open */
             overflow: visible; 
         }
 
         body.panel-open {
-            overflow: hidden; /* Hide body scroll when panel is active */
+            overflow: hidden; 
         }
         
         .clickable {
@@ -49,8 +48,8 @@
 
         /* --- Header Section (TABDEEL SHUDA) --- */
         .header {
-            background-color: #fff; /* White background */
-            color: var(--text-dark); /* Dark text */
+            background-color: #fff; 
+            color: var(--text-dark); 
             padding: 10px 15px;
             display: flex;
             justify-content: space-between;
@@ -58,7 +57,7 @@
             border-bottom: 1px solid #eee;
         }
         .header-logo {
-            height: 35px; /* Logo thora chhota */
+            height: 35px; 
             object-fit: contain; 
         }
         .header-search {
@@ -67,10 +66,10 @@
             color: var(--text-light);
         }
         .header-search i {
-            font-size: 1.5em; /* Sirf icon */
+            font-size: 1.5em; 
         }
 
-        /* --- Primary Icon Bar Section (TABDEEL SHUDA) --- */
+        /* --- Primary Icon Bar Section (YEH TABDEEL HUA HAI) --- */
         .primary-icon-bar {
             background-color: white;
             padding: 15px 0;
@@ -88,15 +87,30 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
+            gap: 8px; /* Gap thora barha diya hai */
             font-size: 0.75em;
-            color: var(--text-dark);
+            /* Color ki line yahan se hata di hai */
         }
+        
+        /* === (NEW STYLE) 1ee.com jesa text box === */
+        .icon-item span {
+            background-color: var(--active-red); /* Red background */
+            color: white; /* White text */
+            padding: 3px 10px; /* Box ke andar space */
+            border-radius: 12px; /* Gol corners */
+            font-size: 0.85em; /* Text ka size */
+            font-weight: 500;
+            display: inline-block;
+            min-width: 50px; /* Kam se kam chaurai */
+            text-align: center; /* Text center me */
+        }
+        /* === (END NEW STYLE) === */
+        
         .icon-item .icon-placeholder {
-            width: 50px; /* Icon chhota kiya */
-            height: 50px; /* Icon chhota kiya */
+            width: 50px; 
+            height: 50px; 
             border-radius: 50%;
-            background-color: #fff; /* Background white kiya */
+            background-color: #fff; 
             display: grid;
             place-items: center;
         }
@@ -114,7 +128,7 @@
         }
         .slider-container {
             width: 100%;
-            height: 120px; /* Height 180px se 120px kar di */
+            height: 120px; 
             border-radius: 10px;
             overflow: hidden; 
             position: relative;
@@ -146,7 +160,7 @@
         }
         .notification-ticker .icon { 
             margin-right: 10px; 
-            color: var(--primary-green); /* Icon ka rang green */
+            color: var(--primary-green); 
             font-size: 1.2em;
         }
         .notification-ticker .text {
@@ -190,17 +204,17 @@
         }
         .login-register-btns {
             display: flex;
-            gap: 10px; /* Gap kam kiya */
-            margin-bottom: 15px; /* Margin kam kiya */
-            justify-content: center; /* Buttons ko center me laaya */
+            gap: 10px; 
+            margin-bottom: 15px; 
+            justify-content: center; 
         }
         .login-register-btns .btn {
-            flex: unset; /* YEH SAB SE ZAROORI HAI (flex: 1 hata diya) */
-            padding: 6px 20px; /* Button size chhota kiya */
+            flex: unset; 
+            padding: 6px 20px; 
             border: none;
-            border-radius: 5px; /* Radius kam kiya */
+            border-radius: 5px; 
             font-weight: 500;
-            font-size: 0.9em; /* Font chhota kiya */
+            font-size: 0.9em; 
         }
         .login-register-btns .btn.login { 
             background-color: var(--light-green); 
@@ -220,14 +234,14 @@
         .secondary-actions .action-item {
             font-size: 0.8em;
             position: relative;
-            flex: 1; /* Taake sab barabar jagah lein */
+            flex: 1; 
         }
         .secondary-actions .action-icon {
             font-size: 1.8em;
             color: var(--primary-green);
             margin-bottom: 5px;
-            width: 35px; /* Icon size chhota kiya */
-            height: 35px; /* Icon size chhota kiya */
+            width: 35px; 
+            height: 35px; 
             margin-left: auto;
             margin-right: auto;
         }
@@ -251,7 +265,7 @@
         
         /* --- Game Section (TABDEEL SHUDA) --- */
         .game-section {
-            background-color: var(--background-grey); /* Background grey */
+            background-color: var(--background-grey); 
             margin-top: 10px;
             padding: 15px;
         }
@@ -260,7 +274,7 @@
             align-items: center;
             gap: 20px;
             margin-bottom: 20px;
-            padding: 0 10px; /* Thora padding */
+            padding: 0 10px; 
         }
         .game-category-tabs .tab-item {
             display: flex;
@@ -282,23 +296,18 @@
             line-height: 1;
         }
         .game-category-tabs .spacer { flex-grow: 1; }
-        .game-category-tabs .avatar-icon img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-        }
         
         .game-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px; /* Gap kam kiya */
+            gap: 10px; 
         }
         .game-thumbnail {
             position: relative;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            background: #fff; /* Game ka background white */
+            background: #fff; 
         }
         
         .game-thumbnail .game-img {
@@ -312,13 +321,13 @@
         .game-thumbnail .like-icon { display: none; }
         .game-thumbnail .provider-logo { display: none; }
         .game-thumbnail .game-title {
-            position: static; /* Title ko neeche le aaye */
-            padding: 8px 5px; /* Thori padding */
+            position: static; 
+            padding: 8px 5px; 
             text-align: center;
             font-size: 0.8em;
             font-weight: 500;
-            color: var(--text-dark); /* Text color dark */
-            text-shadow: none; /* Shadow hata diya */
+            color: var(--text-dark); 
+            text-shadow: none; 
             background: #fff;
         }
         
@@ -354,21 +363,18 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%; /* Full screen height */
+            height: 100%; 
             background-color: #fff;
             z-index: 2000;
-            
-            /* Animation */
-            transform: translateX(100%); /* Start off-screen (right) */
+            transform: translateX(100%); 
             transition: transform 0.4s ease-in-out;
-            
             display: flex;
             flex-direction: column;
-            overflow-y: auto; /* Scrollable if content is too long */
+            overflow-y: auto; 
         }
         
         #register-panel.active {
-            transform: translateX(0%); /* Slide in */
+            transform: translateX(0%); 
         }
 
         .register-header {
@@ -376,7 +382,7 @@
             align-items: center;
             padding: 15px;
             border-bottom: 1px solid var(--border-grey);
-            flex-shrink: 0; /* Header ko shrink hone se rokein */
+            flex-shrink: 0; 
         }
 
         .register-header .back-btn {
@@ -406,7 +412,7 @@
         
         .register-form-container {
             padding: 20px;
-            flex-grow: 1; /* Take remaining space */
+            flex-grow: 1; 
         }
         
         .form-notice {
@@ -430,7 +436,7 @@
         
         .input-group i {
             color: var(--text-light);
-            width: 20px; /* Icon width fix karein */
+            width: 20px; 
             text-align: center;
         }
 
@@ -506,7 +512,6 @@
             margin-bottom: 20px;
         }
         .agreement input[type="checkbox"] {
-            /* Custom checkbox style */
             appearance: none;
             width: 18px;
             height: 18px;
@@ -521,7 +526,7 @@
             border-color: var(--primary-green);
         }
         .agreement input[type="checkbox"]:checked::after {
-            content: '\f00c'; /* Font Awesome check icon */
+            content: '\f00c'; 
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             color: white;
@@ -618,11 +623,11 @@
         <section class="notification-ticker">
             <i class="fas fa-bullhorn icon"></i> <div class="text">
                 <p class="scrolling-text">
-                    Welcome to Pak Wings! Want to be our agent? Contact Us on whatsapp " +92 348 8347820 " | All new players get a 100% bonus on their first deposit. • Get an instant 10% cashback on all your bets...
+                    Welcome to Pak Wings! Want to be our agent? contact our agent on WhatsApp +923488347820 All new players get a 100% bonus on their first deposit. • Get an instant 10% cashback on all your bets...
                 </p>
             </div>
             <div class="mail-icon clickable">
-                <i class="fas fa-envelope"></i>
+                   <i class="fas fa-envelope"></i>
                 <div class="notification-badge">1</div>
             </div>
         </section>
