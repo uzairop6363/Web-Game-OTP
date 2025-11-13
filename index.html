@@ -30,7 +30,8 @@
         body {
             background-color: var(--background-grey);
             color: var(--text-dark);
-            padding-bottom: 80px; /* Space for fixed footer */
+            /* Footer/Bottom Nav ki height (60px) + 20px extra space */
+            padding-bottom: 80px; 
         }
         
         .clickable {
@@ -47,12 +48,8 @@
             align-items: center;
         }
         .header-logo {
-            /* font-family: 'Fredoka One', cursive; /* Text logo ke liye tha, ab image hai */
-            /* font-size: 1.8em;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2); */
-            height: 40px; /* Logo image ki height control karein */
-            object-fit: contain; /* Image ko box ke andar theek se fit kare */
+            height: 40px; 
+            object-fit: contain; 
         }
         .header-search {
             text-align: center;
@@ -84,8 +81,8 @@
             color: var(--text-dark);
         }
         .icon-item .icon-placeholder {
-            width: 60px; /* Icon placeholder ka size bara kiya */
-            height: 60px; /* Icon placeholder ka size bara kiya */
+            width: 60px; 
+            height: 60px; 
             border-radius: 50%;
             background-color: var(--light-green);
             display: grid;
@@ -93,8 +90,8 @@
         }
         /* Style for custom icon images */
         .icon-placeholder img {
-            width: 40px; /* Icon image ka size bara kiya */
-            height: 40px; /* Icon image ka size bara kiya */
+            width: 40px; 
+            height: 40px; 
             object-fit: contain;
         }
 
@@ -105,26 +102,26 @@
         /* === SLIDER CSS START === */
         .slider-container {
             width: 100%;
-            height: 180px; /* Slider ki height bara di */
+            height: 180px; 
             border-radius: 10px;
-            overflow: hidden; /* This hides the other slides */
+            overflow: hidden; 
             position: relative;
         }
         .slider-wrapper {
             display: flex;
-            width: 500%; /* 100% for each of the 5 slides */
-            height: 100%; /* Wrapper height container jitni */
-            transition: transform 0.5s ease-in-out; /* Smooth sliding animation */
+            width: 500%; /* 5 slides ke liye 100% * 5 */
+            height: 100%; 
+            transition: transform 0.5s ease-in-out; 
         }
         .slide {
-            width: 20%; /* Each slide takes up 1/5th of the wrapper */
-            height: 100%; /* Slide height wrapper jitni */
+            width: 20%; /* Har slide wrapper ka 1/5th hai */
+            height: 100%; 
         }
         .slide img {
             width: 100%;
-            height: 100%; /* Image height slide jitni */
-            object-fit: cover; /* Image ko poora fit karega */
-            display: block; /* Removes any bottom space under the image */
+            height: 100%; 
+            object-fit: cover; 
+            display: block; 
         }
         /* === SLIDER CSS END === */
 
@@ -205,8 +202,8 @@
             font-size: 1.8em;
             color: var(--primary-green);
             margin-bottom: 5px;
-            width: 40px; /* Fixed width for Deposit, Withdraw, VIP, More icons */
-            height: 40px; /* Fixed height for Deposit, Withdraw, VIP, More icons */
+            width: 40px; 
+            height: 40px; 
             margin-left: auto;
             margin-right: auto;
         }
@@ -271,15 +268,16 @@
             overflow: hidden;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .game-thumbnail .placeholder-img {
+        
+        /* === YEH NAYA CSS HAI IMAGES KE LIYE === */
+        .game-thumbnail .game-img {
             width: 100%;
-            padding-bottom: 100%; /* Creates a square aspect ratio */
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: grid;
-            place-items: center;
-            color: white;
-            font-weight: bold;
+            aspect-ratio: 1 / 1; /* Isse image hamesha square (1:1) rahegi */
+            object-fit: cover; /* Image ko stretch kiye bina fit karega */
+            display: block; /* Image ke neeche extra space khatam karega */
+            background-color: #eee; /* Agar image load na ho toh grey background */
         }
+        
         .game-thumbnail .like-icon {
             position: absolute;
             top: 8px;
@@ -308,13 +306,13 @@
             text-shadow: 1px 1px 3px black;
         }
         
-        /* --- Bottom Navigation --- */
+        /* --- Bottom Navigation (Chhota kiya gaya) --- */
         .bottom-nav {
-            position: fixed;
+            position: fixed; /* YEH ISAY SCREEN PAR STUCK RAKHTA HAI */
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 70px;
+            height: 60px; /* Height 70px se 60px kar di hai */
             background-color: white;
             display: flex;
             justify-content: space-around;
@@ -329,8 +327,8 @@
             gap: 4px;
             color: var(--text-light);
         }
-        .nav-item i { font-size: 1.5em; }
-        .nav-item span { font-size: 0.75em; }
+        .nav-item i { font-size: 1.3em; } /* Icon size 1.5em se 1.3em kar diya */
+        .nav-item span { font-size: 0.7em; } /* Text size 0.75em se 0.7em kar diya */
         .nav-item.active { color: var(--primary-green); }
     </style>
 </head>
@@ -417,32 +415,32 @@
 
             <div class="game-grid">
                 <div class="game-thumbnail clickable">
-                    <div class="placeholder-img">AV</div>
+                    <img src="images/aviator.jpg" alt="Aviator" class="game-img">
                     <i class="fas fa-heart like-icon"></i><div class="provider-logo"></div>
                     <div class="game-title">Aviator</div>
                 </div>
                 <div class="game-thumbnail clickable">
-                    <div class="placeholder-img" style="background: linear-gradient(135deg, #f0932b, #8c4b00);">JS</div>
+                    <img src="images/jili_slots.jpg" alt="JILI Slots" class="game-img">
                     <i class="fas fa-heart like-icon"></i><div class="provider-logo"></div>
                     <div class="game-title">JILI Slots</div>
                 </div>
                 <div class="game-thumbnail clickable">
-                    <div class="placeholder-img" style="background: linear-gradient(135deg, #48dbfb, #0abde3);">9W</div>
+                    <img src="images/9wickets.jpg" alt="9Wickets" class="game-img">
                     <i class="fas fa-heart like-icon"></i><div class="provider-logo"></div>
                     <div class="game-title">9Wickets</div>
                 </div>
                 <div class="game-thumbnail clickable">
-                    <div class="placeholder-img" style="background: linear-gradient(135deg, #ff7979, #eb4d4b);">JI</div>
+                    <img src="images/jili.jpg" alt="JILI" class="game-img">
                     <i class="fas fa-heart like-icon"></i><div class="provider-logo"></div>
                     <div class="game-title">JILI</div>
                 </div>
                 <div class="game-thumbnail clickable">
-                    <div class="placeholder-img" style="background: linear-gradient(135deg, #54a0ff, #2e86de);">CT</div>
+                    <img src="images/crazy_time.jpg" alt="Crazy Time" class="game-img">
                     <i class="fas fa-heart like-icon"></i><div class="provider-logo"></div>
                     <div class="game-title">Crazy Time</div>
                 </div>
                  <div class="game-thumbnail clickable">
-                    <div class="placeholder-img" style="background: linear-gradient(135deg, #1dd1a1, #10ac84);">DG</div>
+                    <img src="images/dragon.jpg" alt="Dragon" class="game-img">
                     <i class="fas fa-heart like-icon"></i><div class="provider-logo"></div>
                     <div class="game-title">Dragon</div>
                 </div>
