@@ -20,6 +20,8 @@
             --active-red: #d93025;
             --badge-yellow: #ffc107;
             --badge-red: #d93025;
+            --border-grey: #e0e0e0; /* New border color */
+            --required-red: #d93025; /* New red for * */
         }
 
         * {
@@ -33,6 +35,12 @@
             background-color: var(--background-grey);
             color: var(--text-dark);
             padding-bottom: 80px; 
+            /* Stop body scrolling when panel is open */
+            overflow: visible; 
+        }
+
+        body.panel-open {
+            overflow: hidden; /* Hide body scroll when panel is active */
         }
         
         .clickable {
@@ -91,7 +99,6 @@
             background-color: #fff; /* Background white kiya */
             display: grid;
             place-items: center;
-            /* border: 1px solid #eee; */ /* Optional border */
         }
         .icon-placeholder img {
             width: 40px; 
@@ -180,7 +187,6 @@
         .main-actions {
             padding: 15px;
             background-color: #fff;
-            /* margin-top: 10px; (margin hata diya) */
         }
         .login-register-btns {
             display: flex;
@@ -230,11 +236,9 @@
             height: 100%;
             object-fit: contain;
         }
-        /* Badge ki general style */
         .action-item .badge {
             position: absolute;
             top: -5px;
-            /* 'right' ko har item ke hisab se set karein */
             right: 10px; 
             color: #333;
             font-size: 0.7em;
@@ -242,7 +246,6 @@
             border-radius: 5px;
             font-weight: bold;
         }
-        /* Alag alag badge colors */
         .badge.yellow { background: var(--badge-yellow); }
         .badge.red { background: var(--badge-red); color: white; font-size: 0.6em; }
         
@@ -273,7 +276,6 @@
             border-bottom-color: var(--active-red);
             font-weight: 500;
         }
-        /* "777" Icon ki style */
         .tab-item .icon-777 {
             font-size: 1.1em;
             font-weight: 700;
@@ -307,12 +309,8 @@
             background-color: #eee; 
         }
         
-        .game-thumbnail .like-icon {
-            display: none; /* Like icon hide kar diya, image me nahi tha */
-        }
-        .game-thumbnail .provider-logo {
-            display: none; /* Provider logo hide kar diya */
-        }
+        .game-thumbnail .like-icon { display: none; }
+        .game-thumbnail .provider-logo { display: none; }
         .game-thumbnail .game-title {
             position: static; /* Title ko neeche le aaye */
             padding: 8px 5px; /* Thori padding */
@@ -348,10 +346,246 @@
         .nav-item i { font-size: 1.3em; }
         .nav-item span { font-size: 0.7em; }
         .nav-item.active { color: var(--primary-green); }
+
+
+        /* --- (NEW) REGISTRATION PANEL STYLES --- */
+        #register-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; /* Full screen height */
+            background-color: #fff;
+            z-index: 2000;
+            
+            /* Animation */
+            transform: translateX(100%); /* Start off-screen (right) */
+            transition: transform 0.4s ease-in-out;
+            
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto; /* Scrollable if content is too long */
+        }
+        
+        #register-panel.active {
+            transform: translateX(0%); /* Slide in */
+        }
+
+        .register-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-grey);
+            flex-shrink: 0; /* Header ko shrink hone se rokein */
+        }
+
+        .register-header .back-btn {
+            font-size: 1.2em;
+            color: var(--text-dark);
+        }
+
+        .register-header .tabs {
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
+            gap: 20px;
+        }
+
+        .register-header .tab-item {
+            font-size: 1em;
+            font-weight: 500;
+            color: var(--text-light);
+            padding-bottom: 10px;
+            border-bottom: 3px solid transparent;
+        }
+
+        .register-header .tab-item.active {
+            color: var(--primary-green);
+            border-bottom-color: var(--primary-green);
+        }
+        
+        .register-form-container {
+            padding: 20px;
+            flex-grow: 1; /* Take remaining space */
+        }
+        
+        .form-notice {
+            font-size: 0.8em;
+            color: var(--text-light);
+            background-color: var(--background-grey);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .input-group {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-grey);
+            border-radius: 5px;
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+        
+        .input-group i {
+            color: var(--text-light);
+            width: 20px; /* Icon width fix karein */
+            text-align: center;
+        }
+
+        .input-group input[type="text"],
+        .input-group input[type="password"],
+        .input-group input[type="tel"] {
+            border: none;
+            outline: none;
+            flex-grow: 1;
+            padding: 12px 10px;
+            font-size: 0.9em;
+            background: transparent;
+        }
+
+        .input-group .required {
+            color: var(--required-red);
+            font-weight: bold;
+            padding-left: 5px;
+        }
+        
+        .input-group .icon-right {
+            padding-right: 10px;
+            cursor: pointer;
+        }
+        
+        .strength-container {
+            margin-bottom: 15px;
+        }
+        .strength-container label {
+            font-size: 0.9em;
+            color: var(--text-dark);
+            margin-left: 5px;
+        }
+        .strength-bar {
+            width: 100%;
+            height: 6px;
+            background-color: var(--border-grey);
+            border-radius: 3px;
+            margin-top: 5px;
+        }
+        
+        /* Phone Input Specific */
+        .input-group.phone .country-code {
+            display: flex;
+            align-items: center;
+            font-size: 0.9em;
+            font-weight: 500;
+            border-right: 1px solid var(--border-grey);
+            padding-right: 10px;
+        }
+        .input-group.phone .country-code img {
+            width: 24px;
+            margin-right: 5px;
+        }
+        
+        /* OTP Input Specific */
+        .input-group.otp .btn-send-otp {
+            background: none;
+            border: none;
+            border-left: 1px solid var(--border-grey);
+            color: var(--primary-green);
+            font-weight: 500;
+            font-size: 0.8em;
+            padding: 12px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        /* Agreement Checkbox */
+        .agreement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .agreement input[type="checkbox"] {
+            /* Custom checkbox style */
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 1px solid var(--border-grey);
+            border-radius: 3px;
+            position: relative;
+            cursor: pointer;
+            margin-right: 8px;
+        }
+        .agreement input[type="checkbox"]:checked {
+            background-color: var(--primary-green);
+            border-color: var(--primary-green);
+        }
+        .agreement input[type="checkbox"]:checked::after {
+            content: '\f00c'; /* Font Awesome check icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.7em;
+        }
+
+        .agreement label {
+            font-size: 0.8em;
+            color: var(--text-light);
+        }
+        .agreement label a {
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+        
+        /* Submit Button */
+        .btn-submit-register {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        /* Extra Links */
+        .extra-links {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .extra-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+
+        /* Binding Registration */
+        .binding-reg {
+            text-align: center;
+        }
+        .binding-reg span {
+            font-size: 0.9em;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            display: block;
+        }
+        .binding-reg .google-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
     </style>
 </head>
 <body>
-
     <header class="header">
         <img src="images/logo_pakwings.jpg" alt="Pak Wings Logo" class="header-logo clickable">
         <div class="header-search clickable">
@@ -460,17 +694,93 @@
     <footer class="bottom-nav">
         <div class="nav-item active clickable"><i class="fas fa-home"></i><span>Home</span></div>
         <div class="nav-item clickable"><i class="fas fa-gift"></i><span>Offers</span></div>
-        <div class="nav-item clickable"><i class="fas fa-user-plus"></i><span>Register</span></div>
+        <div class="nav-item clickable register-trigger"><i class="fas fa-user-plus"></i><span>Register</span></div> 
         <div class="nav-item clickable"><i class="fas fa-sign-in-alt"></i><span>Login</span></div>
         <div class="nav-item clickable"><i class="fas fa-user-circle"></i><span>Profile</span></div>
     </footer>
 
+    <div id="register-panel">
+        <header class="register-header">
+            <i class="fas fa-arrow-left back-btn clickable" id="close-register"></i>
+            <div class="tabs">
+                <span class="tab-item active">Register</span>
+                <span class="tab-item clickable">Login</span>
+            </div>
+        </header>
+        
+        <div class="register-form-container">
+            <div class="form-notice">
+                Only support Username Register
+            </div>
+            
+            <form id="registration-form">
+                <div class="input-group">
+                    <span class="required">*</span>
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="reg-username" placeholder="Please enter Username" required>
+                </div>
+                
+                <div class="input-group">
+                    <span class="required">*</span>
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="reg-password" placeholder="Enter password" required>
+                    <i class="fas fa-eye icon-right clickable" id="toggle-password"></i>
+                </div>
+                
+                <div class="strength-container">
+                    <label>Strength</label>
+                    <div class="strength-bar"></div>
+                </div>
+                
+                <div class="input-group phone">
+                    <span class="country-code">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg" alt="PK Flag">
+                        <span>+92</span>
+                    </span>
+                    <span class="required">*</span>
+                    <input type="tel" id="reg-phone" placeholder="Please enter phone number" required>
+                </div>
+
+                <div class="input-group otp">
+                    <span class="required">*</span>
+                    <i class="fas fa-shield-alt"></i>
+                    <input type="text" id="reg-otp" placeholder="Enter OTP" required>
+                    <button type="button" class="btn-send-otp clickable">Send OTP</button>
+                </div>
+                
+                <div class="agreement">
+                    <input type="checkbox" id="reg-agree" checked>
+                    <label for="reg-agree">
+                        I am over 18 years old and have read and agreed to 
+                        <a href="#" class="clickable">{User Agreement}</a>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-submit-register clickable">Register</button>
+                
+                <div class="extra-links">
+                    <a href="#" class="clickable">Customer Service</a>
+                    <a href="#" class="clickable">Demo</a>
+                </div>
+                
+                <div class="binding-reg">
+                    <span>Binding registration</span>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="google-icon clickable">
+                </div>
+                
+            </form>
+        </div>
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Basic JavaScript for UI Interaction
             const clickableElements = document.querySelectorAll('.clickable');
             clickableElements.forEach(element => {
                 element.addEventListener('click', (e) => {
+                    // Stop clicks on register triggers from logging twice
+                    if (e.currentTarget.classList.contains('register-trigger') || e.currentTarget.classList.contains('btn-register')) {
+                       // return;
+                    }
                     let elementName = e.currentTarget.textContent.trim() || e.currentTarget.className;
                     console.log(`'${elementName}' was clicked.`);
                 });
@@ -489,6 +799,71 @@
 
             setInterval(nextSlide, 3000);
             // === SLIDER JAVASCRIPT END ===
+
+
+            // === (NEW) REGISTRATION PANEL JAVASCRIPT ===
+            
+            const registerPanel = document.getElementById('register-panel');
+            const closeRegisterBtn = document.getElementById('close-register');
+            // Select all buttons that should open the register panel
+            const openRegisterBtns = document.querySelectorAll('.btn.register, .nav-item .fa-user-plus'); 
+
+            // Function to open the panel
+            const openPanel = () => {
+                registerPanel.classList.add('active');
+                document.body.classList.add('panel-open'); // Stop body scroll
+            };
+
+            // Function to close the panel
+            const closePanel = () => {
+                registerPanel.classList.remove('active');
+                document.body.classList.remove('panel-open'); // Allow body scroll
+            };
+
+            // Add click listeners to all open buttons
+            openRegisterBtns.forEach(btn => {
+                // We listen on the parent if it's the icon, to get the whole nav-item
+                let target = btn.classList.contains('fa-user-plus') ? btn.parentElement : btn;
+                target.addEventListener('click', (e) => {
+                    e.preventDefault(); // Stop any default link behavior
+                    e.stopPropagation(); // Stop event bubbling
+                    console.log("Register panel opened");
+                    openPanel();
+                });
+            });
+
+            // Add click listener to close button
+            closeRegisterBtn.addEventListener('click', (e) => {
+                 e.stopPropagation();
+                 console.log("Register panel closed");
+                 closePanel();
+            });
+
+            // Password Toggle
+            const togglePassword = document.getElementById('toggle-password');
+            const passwordInput = document.getElementById('reg-password');
+            
+            togglePassword.addEventListener('click', function (e) {
+                e.stopPropagation();
+                // Toggle the type attribute
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                // Toggle the eye icon
+                this.classList.toggle('fa-eye');
+                this.classList.toggle('fa-eye-slash');
+            });
+
+            // Handle form submission
+            const regForm = document.getElementById('registration-form');
+            regForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Form ko submit hone se rokein
+                console.log('Form submitted (or simulation finished).');
+                alert('Registration successful! (Simulation)');
+                // Yahan aap actual form submission logic (e.g., AJAX request) daal sakte hain
+            });
+            // === (END) REGISTRATION PANEL JAVASCRIPT ===
+
         });
     </script>
 </body>
