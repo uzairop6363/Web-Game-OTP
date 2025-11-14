@@ -354,8 +354,8 @@
         .nav-item.active { color: var(--primary-green); }
 
 
-        /* --- REGISTRATION PANEL STYLES --- */
-        #register-panel {
+        /* --- (COMMON) PANEL STYLES --- */
+        #register-panel, #login-panel {
             position: fixed;
             top: 0;
             left: 0;
@@ -370,7 +370,7 @@
             overflow-y: auto; 
         }
         
-        #register-panel.active {
+        #register-panel.active, #login-panel.active {
             transform: translateX(0%); 
         }
 
@@ -407,7 +407,7 @@
             border-bottom-color: var(--primary-green);
         }
         
-        .register-form-container {
+        .register-form-container, .login-form-container {
             padding: 20px;
             flex-grow: 1; 
         }
@@ -431,14 +431,20 @@
             border: 1px solid var(--border-grey);
             border-radius: 5px;
             margin-bottom: 15px;
-            padding-left: 10px; /* Left padding for icon/required star */
         }
         
-        .input-group i {
+        /* Icon/Star ke liye padding */
+        .input-group i, .input-group .required {
             color: var(--text-light);
             width: 20px; 
             text-align: center;
-            flex-shrink: 0; /* Icon shrink na kare */
+            flex-shrink: 0; 
+            padding-left: 10px;
+        }
+        .input-group .required {
+            color: var(--required-red);
+            font-weight: bold;
+            padding-left: 10px;
         }
 
         .input-group input[type="text"],
@@ -451,20 +457,22 @@
             font-size: 0.9em;
             background: transparent;
         }
-
-        .input-group .required {
-            color: var(--required-red);
-            font-weight: bold;
-            padding-left: 5px;
-            flex-shrink: 0; /* Star shrink na kare */
+        
+        /* Input group jisme icon nahi hai */
+        .input-group.no-icon {
+            padding-left: 0;
+        }
+        .input-group.no-icon input {
+            padding-left: 12px; /* Input ke andar padding */
         }
         
         .input-group .icon-right {
-            padding-right: 10px;
+            padding: 0 10px; /* Padding left se hata kar dono taraf ki */
             cursor: pointer;
             flex-shrink: 0; 
         }
         
+        /* --- REGISTER-SPECIFIC STYLES --- */
         .strength-container {
             margin-bottom: 15px;
         }
@@ -481,7 +489,6 @@
             margin-top: 5px;
         }
         
-        /* Phone Input Specific */
         .input-group.phone .country-code {
             display: flex;
             align-items: center;
@@ -489,6 +496,7 @@
             font-weight: 500;
             border-right: 1px solid var(--border-grey);
             padding-right: 10px;
+            padding-left: 10px; /* Explicitly add left padding */
             flex-shrink: 0; 
         }
         .input-group.phone .country-code img {
@@ -496,13 +504,12 @@
             margin-right: 5px;
         }
         
-        /* === (TABDEEL SHUDA) OTP BUTTON STYLE === */
         .input-group.otp {
-            padding-right: 4px; /* Right padding for the button to fit */
-            position: relative; /* For button positioning */
+            padding-right: 4px; 
+            position: relative; 
         }
         .input-group.otp input {
-            padding-right: 100px; /* Input text ke liye space, button ke neeche se */
+            padding-right: 100px; 
         }
 
         .input-group.otp .btn-send-otp {
@@ -510,32 +517,52 @@
             color: white; 
             border: none; 
             font-weight: 500;
-            /* Font size mazeed chhota kiya */
             font-size: 0.75em; 
-            padding: 8px 10px; /* Padding adjust ki */
+            padding: 8px 10px; 
             cursor: pointer;
             white-space: nowrap;
             border-radius: 5px; 
-            
-            /* Button ko input field ke andar adjust kiya */
             position: absolute;
-            right: 4px; /* Right side se 4px ka gap */
-            top: 50%; /* Vertical center */
-            transform: translateY(-50%); /* Exactly center karne ke liye */
-            height: calc(100% - 8px); /* Height input field jaisi, upar neeche se 4px gap */
-            line-height: 1; /* Text ko center mein rakhne ke liye */
+            right: 4px; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            height: calc(100% - 8px); 
+            line-height: 1; 
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0; 
         }
 
+        /* --- (NAYA) LOGIN-SPECIFIC STYLES --- */
+        .form-notice-login {
+            font-size: 0.8em;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .login-type-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-left: 5px;
+        }
+        .login-type-tabs .login-type {
+            font-size: 0.9em;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        .login-type-tabs .login-type.active {
+            color: var(--primary-green);
+        }
 
-        /* Agreement Checkbox */
+        /* --- (COMMON) AGREEMENT/BUTTONS/LINKS --- */
         .agreement {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
+            padding-left: 5px;
         }
         .agreement input[type="checkbox"] {
             appearance: none;
@@ -572,8 +599,7 @@
             text-decoration: none;
         }
         
-        /* Submit Button */
-        .btn-submit-register {
+        .btn-submit-register, .btn-submit-login {
             width: 100%;
             padding: 12px;
             background-color: var(--primary-green);
@@ -586,7 +612,6 @@
             margin-bottom: 20px;
         }
 
-        /* Extra Links */
         .extra-links {
             display: flex;
             justify-content: space-between;
@@ -597,8 +622,12 @@
             color: var(--text-light);
             font-size: 0.9em;
         }
+        
+        /* (NAYA) Login links ke liye green color */
+        .extra-links.login-links a {
+            color: var(--primary-green);
+        }
 
-        /* Binding Registration */
         .binding-reg {
             text-align: center;
         }
@@ -725,7 +754,7 @@
         <div class="nav-item active clickable"><i class="fas fa-home"></i><span>Home</span></div>
         <div class="nav-item clickable"><i class="fas fa-gift"></i><span>Offers</span></div>
         <div class="nav-item clickable register-trigger"><i class="fas fa-user-plus"></i><span>Register</span></div> 
-        <div class="nav-item clickable"><i class="fas fa-sign-in-alt"></i><span>Login</span></div>
+        <div class="nav-item clickable login-trigger"><i class="fas fa-sign-in-alt"></i><span>Login</span></div>
     </footer>
 
     <div id="register-panel">
@@ -733,7 +762,7 @@
             <i class="fas fa-arrow-left back-btn clickable" id="close-register"></i>
             <div class="tabs">
                 <span class="tab-item active">Register</span>
-                <span class="tab-item clickable">Login</span>
+                <span class="tab-item clickable" id="reg-panel-login-tab">Login</span>
             </div>
         </header>
         
@@ -797,10 +826,66 @@
                     <span>Binding registration</span>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="google-icon clickable">
                 </div>
-                
             </form>
         </div>
     </div>
+    
+    <div id="login-panel">
+        <header class="register-header">
+            <i class="fas fa-arrow-left back-btn clickable" id="close-login"></i>
+            <div class="tabs">
+                <span class="tab-item clickable" id="login-panel-reg-tab">Register</span>
+                <span class="tab-item active">Login</span>
+            </div>
+        </header>
+    
+        <div class="login-form-container">
+            <div class="form-notice">
+                <img src="images/logo_pakwings.jpg" alt="Pak Wings Logo" class="register-form-logo">
+            </div>
+            
+            <form id="login-form">
+                <div class="form-notice-login">
+                    Support Phone number/Username Login
+                </div>
+            
+                <div class="input-group no-icon">
+                    <input type="text" id="login-username" placeholder="Please enter Phone number/Username" required>
+                </div>
+                
+                <div class="login-type-tabs">
+                    <span class="login-type active">Password Login</span>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="login-password" placeholder="Enter password" required>
+                    <i class="fas fa-eye-slash icon-right clickable" id="toggle-login-password"></i>
+                </div>
+                
+                <div class="agreement">
+                    <input type="checkbox" id="login-remember" checked>
+                    <label for="login-remember">
+                        Remember account password
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-submit-login clickable">Login</button>
+                
+                <div class="extra-links login-links">
+                    <a href="#" class="clickable">Customer Service</a>
+                    <a href="#" class="clickable">Demo</a>
+                    <a href="#" class="clickable">Forgot Password</a>
+                </div>
+                
+                <div class="binding-reg">
+                    <span>Quick login</span>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="google-icon clickable">
+                </div>
+            </form>
+        </div>
+    </div>
+
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -808,16 +893,12 @@
             const clickableElements = document.querySelectorAll('.clickable');
             clickableElements.forEach(element => {
                 element.addEventListener('click', (e) => {
-                    // Stop clicks on register triggers from logging twice
-                    if (e.currentTarget.classList.contains('register-trigger') || e.currentTarget.classList.contains('btn-register')) {
-                       // return;
-                    }
                     let elementName = e.currentTarget.textContent.trim() || e.currentTarget.className;
                     console.log(`'${elementName}' was clicked.`);
                 });
             });
 
-            // === SLIDER JAVASCRIPT START ===
+            // === SLIDER JAVASCRIPT ===
             const sliderWrapper = document.querySelector('.slider-wrapper');
             let currentSlide = 0;
             const totalSlides = 5;
@@ -827,73 +908,122 @@
                 const offset = currentSlide * -20;
                 sliderWrapper.style.transform = `translateX(${offset}%)`;
             }
-
             setInterval(nextSlide, 3000);
-            // === SLIDER JAVASCRIPT END ===
 
-
-            // === REGISTRATION PANEL JAVASCRIPT ===
-            
+            // === PANEL JAVASCRIPT (COMMON) ===
             const registerPanel = document.getElementById('register-panel');
+            const loginPanel = document.getElementById('login-panel');
+            const body = document.body;
+
+            // === REGISTER PANEL LOGIC ===
             const closeRegisterBtn = document.getElementById('close-register');
-            // Select all buttons that should open the register panel
-            const openRegisterBtns = document.querySelectorAll('.btn.register, .nav-item .fa-user-plus'); 
+            const openRegisterBtns = document.querySelectorAll('.btn.register, .register-trigger'); 
 
-            // Function to open the panel
-            const openPanel = () => {
+            const openRegisterPanel = () => {
                 registerPanel.classList.add('active');
-                document.body.classList.add('panel-open'); // Stop body scroll
+                body.classList.add('panel-open'); 
             };
-
-            // Function to close the panel
-            const closePanel = () => {
+            const closeRegisterPanel = () => {
                 registerPanel.classList.remove('active');
-                document.body.classList.remove('panel-open'); // Allow body scroll
+                body.classList.remove('panel-open'); 
             };
 
-            // Add click listeners to all open buttons
             openRegisterBtns.forEach(btn => {
-                // We listen on the parent if it's the icon, to get the whole nav-item
-                let target = btn.classList.contains('fa-user-plus') ? btn.parentElement : btn;
-                target.addEventListener('click', (e) => {
-                    e.preventDefault(); // Stop any default link behavior
-                    e.stopPropagation(); // Stop event bubbling
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault(); e.stopPropagation();
                     console.log("Register panel opened");
-                    openPanel();
+                    openRegisterPanel();
                 });
             });
-
-            // Add click listener to close button
             closeRegisterBtn.addEventListener('click', (e) => {
                  e.stopPropagation();
                  console.log("Register panel closed");
-                 closePanel();
+                 closeRegisterPanel();
             });
 
-            // Password Toggle
+            // Register Password Toggle
             const togglePassword = document.getElementById('toggle-password');
             const passwordInput = document.getElementById('reg-password');
             
             togglePassword.addEventListener('click', function (e) {
                 e.stopPropagation();
-                // Toggle the type attribute
                 const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
                 passwordInput.setAttribute('type', type);
-                
-                // Toggle the eye icon
                 this.classList.toggle('fa-eye');
                 this.classList.toggle('fa-eye-slash');
             });
 
-            // Handle form submission
+            // Register Form Submit
             const regForm = document.getElementById('registration-form');
             regForm.addEventListener('submit', function(e) {
-                e.preventDefault(); // Form ko submit hone se rokein
-                console.log('Form submitted (or simulation finished).');
-                alert('Registration successful! (Simulation)');
-                // Yahan aap actual form submission logic (e.g., AJAX request) daal sakte hain
+                e.preventDefault(); 
+                console.log('Registration Form submitted (simulation).');
+                alert('Incorrect OTP');
             });
-            // === (END) REGISTRATION PANEL JAVASCRIPT ===
+
+
+            // === (NAYA) LOGIN PANEL LOGIC ===
+            const closeLoginBtn = document.getElementById('close-login');
+            const openLoginBtns = document.querySelectorAll('.btn.login, .login-trigger'); 
+
+            const openLoginPanel = () => {
+                loginPanel.classList.add('active');
+                body.classList.add('panel-open');
+            };
+            const closeLoginPanel = () => {
+                loginPanel.classList.remove('active');
+                body.classList.remove('panel-open');
+            };
+
+            openLoginBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault(); e.stopPropagation();
+                    console.log("Login panel opened");
+                    openLoginPanel();
+                });
+            });
+            closeLoginBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                console.log("Login panel closed");
+                closeLoginPanel();
+            });
+
+            // Login Password Toggle
+            const toggleLoginPassword = document.getElementById('toggle-login-password');
+            const loginPasswordInput = document.getElementById('login-password');
+            
+            toggleLoginPassword.addEventListener('click', function (e) {
+                e.stopPropagation();
+                const type = loginPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                loginPasswordInput.setAttribute('type', type);
+                this.classList.toggle('fa-eye');
+                this.classList.toggle('fa-eye-slash');
+            });
+
+            // Login Form Submit
+            const loginForm = document.getElementById('login-form');
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                console.log('Login Form submitted (simulation).');
+                alert('Wrong Password or Username');
+            });
+
+
+            // === (NAYA) PANEL SWITCHING LOGIC ===
+            const regPanelLoginTab = document.getElementById('reg-panel-login-tab');
+            const loginPanelRegTab = document.getElementById('login-panel-reg-tab');
+
+            regPanelLoginTab.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeRegisterPanel(); 
+                openLoginPanel(); 
+            });
+
+            loginPanelRegTab.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeLoginPanel(); 
+                openRegisterPanel();  
+            });
 
         });
     </script>
