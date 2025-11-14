@@ -17,7 +17,7 @@
             --background-grey: #f0f2f5;
             --text-dark: #333;
             --text-light: #888;
-            --active-red: #d93025; /* Ye raha red color jo use hoga */
+            --active-red: #d93025; 
             --badge-yellow: #ffc107;
             --badge-red: #d93025;
             --border-grey: #e0e0e0; 
@@ -46,7 +46,7 @@
             cursor: pointer;
         }
 
-        /* --- Header Section (TABDEEL SHUDA) --- */
+        /* --- Header Section --- */
         .header {
             background-color: #fff; 
             color: var(--text-dark); 
@@ -69,7 +69,7 @@
             font-size: 1.5em; 
         }
 
-        /* --- Primary Icon Bar Section (YEH TABDEEL HUA HAI) --- */
+        /* --- Primary Icon Bar Section --- */
         .primary-icon-bar {
             background-color: white;
             padding: 15px 0;
@@ -87,24 +87,21 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px; /* Gap thora barha diya hai */
+            gap: 8px; 
             font-size: 0.75em;
-            /* Color ki line yahan se hata di hai */
         }
         
-        /* === (NEW STYLE) 1ee.com jesa text box === */
         .icon-item span {
-            background-color: var(--active-red); /* Red background */
-            color: white; /* White text */
-            padding: 3px 10px; /* Box ke andar space */
-            border-radius: 12px; /* Gol corners */
-            font-size: 0.85em; /* Text ka size */
+            background-color: var(--active-red); 
+            color: white; 
+            padding: 3px 10px; 
+            border-radius: 12px; 
+            font-size: 0.85em; 
             font-weight: 500;
             display: inline-block;
-            min-width: 50px; /* Kam se kam chaurai */
-            text-align: center; /* Text center me */
+            min-width: 50px; 
+            text-align: center; 
         }
-        /* === (END NEW STYLE) === */
         
         .icon-item .icon-placeholder {
             width: 50px; 
@@ -120,7 +117,7 @@
             object-fit: contain;
         }
 
-        /* --- Banner & Ticker Section (TABDEEL SHUDA) --- */
+        /* --- Banner & Ticker Section --- */
         .banner-container {
             padding: 15px;
             background: #fff;
@@ -150,7 +147,7 @@
             display: block; 
         }
         
-        /* Notification Ticker (TABDEEL SHUDA) */
+        /* Notification Ticker */
         .notification-ticker {
             display: flex;
             align-items: center;
@@ -197,7 +194,7 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* --- Main Actions Section (TABDEEL SHUDA) --- */
+        /* --- Main Actions Section --- */
         .main-actions {
             padding: 15px;
             background-color: #fff;
@@ -263,7 +260,7 @@
         .badge.yellow { background: var(--badge-yellow); }
         .badge.red { background: var(--badge-red); color: white; font-size: 0.6em; }
         
-        /* --- Game Section (TABDEEL SHUDA) --- */
+        /* --- Game Section --- */
         .game-section {
             background-color: var(--background-grey); 
             margin-top: 10px;
@@ -415,14 +412,20 @@
             flex-grow: 1; 
         }
         
+        /* === (TABDEEL SHUDA) LOGO CONTAINER === */
         .form-notice {
-            font-size: 0.8em;
-            color: var(--text-light);
-            background-color: var(--background-grey);
+            /* Text ki styling hata di hai */
+            background-color: #fff; /* Background white */
             padding: 10px;
             border-radius: 5px;
-            text-align: center;
+            text-align: center; /* Logo center me */
             margin-bottom: 20px;
+        }
+        
+        /* === (NAYA) LOGO STYLE === */
+        .register-form-logo {
+            height: 50px; /* Logo ki height */
+            object-fit: contain;
         }
         
         .input-group {
@@ -492,17 +495,18 @@
             margin-right: 5px;
         }
         
-        /* OTP Input Specific */
+        /* === (TABDEEL SHUDA) OTP BUTTON STYLE === */
         .input-group.otp .btn-send-otp {
-            background: none;
-            border: none;
-            border-left: 1px solid var(--border-grey);
-            color: var(--primary-green);
+            background: var(--primary-green); /* Green background */
+            color: white; /* White text */
+            border: none; /* Koi border nahi */
             font-weight: 500;
             font-size: 0.8em;
-            padding: 12px;
+            padding: 10px 12px; /* Padding adjust ki */
             cursor: pointer;
             white-space: nowrap;
+            margin: 4px; /* Input box ke andar thori space */
+            border-radius: 5px; /* Gol corners */
         }
 
         /* Agreement Checkbox */
@@ -712,8 +716,9 @@
         </header>
         
         <div class="register-form-container">
+            
             <div class="form-notice">
-                Only support Username Register
+                <img src="images/logo_pakwings.jpg" alt="Pak Wings Logo" class="register-form-logo">
             </div>
             
             <form id="registration-form">
