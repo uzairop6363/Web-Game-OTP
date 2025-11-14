@@ -354,7 +354,7 @@
         .nav-item.active { color: var(--primary-green); }
 
 
-        /* --- (NEW) REGISTRATION PANEL STYLES --- */
+        /* --- REGISTRATION PANEL STYLES --- */
         #register-panel {
             position: fixed;
             top: 0;
@@ -412,19 +412,16 @@
             flex-grow: 1; 
         }
         
-        /* === (TABDEEL SHUDA) LOGO CONTAINER === */
         .form-notice {
-            /* Text ki styling hata di hai */
-            background-color: #fff; /* Background white */
+            background-color: #fff; 
             padding: 10px;
             border-radius: 5px;
-            text-align: center; /* Logo center me */
+            text-align: center; 
             margin-bottom: 20px;
         }
         
-        /* === (NAYA) LOGO STYLE === */
         .register-form-logo {
-            height: 50px; /* Logo ki height */
+            height: 50px; 
             object-fit: contain;
         }
         
@@ -434,13 +431,14 @@
             border: 1px solid var(--border-grey);
             border-radius: 5px;
             margin-bottom: 15px;
-            padding-left: 10px;
+            padding-left: 10px; /* Left padding for icon/required star */
         }
         
         .input-group i {
             color: var(--text-light);
             width: 20px; 
             text-align: center;
+            flex-shrink: 0; /* Icon shrink na kare */
         }
 
         .input-group input[type="text"],
@@ -458,11 +456,13 @@
             color: var(--required-red);
             font-weight: bold;
             padding-left: 5px;
+            flex-shrink: 0; /* Star shrink na kare */
         }
         
         .input-group .icon-right {
             padding-right: 10px;
             cursor: pointer;
+            flex-shrink: 0; 
         }
         
         .strength-container {
@@ -489,6 +489,7 @@
             font-weight: 500;
             border-right: 1px solid var(--border-grey);
             padding-right: 10px;
+            flex-shrink: 0; 
         }
         .input-group.phone .country-code img {
             width: 24px;
@@ -496,18 +497,39 @@
         }
         
         /* === (TABDEEL SHUDA) OTP BUTTON STYLE === */
+        .input-group.otp {
+            padding-right: 4px; /* Right padding for the button to fit */
+            position: relative; /* For button positioning */
+        }
+        .input-group.otp input {
+            padding-right: 100px; /* Input text ke liye space, button ke neeche se */
+        }
+
         .input-group.otp .btn-send-otp {
-            background: var(--primary-green); /* Green background */
-            color: white; /* White text */
-            border: none; /* Koi border nahi */
+            background: var(--primary-green); 
+            color: white; 
+            border: none; 
             font-weight: 500;
-            font-size: 0.8em;
-            padding: 10px 12px; /* Padding adjust ki */
+            /* Font size mazeed chhota kiya */
+            font-size: 0.75em; 
+            padding: 8px 10px; /* Padding adjust ki */
             cursor: pointer;
             white-space: nowrap;
-            margin: 4px; /* Input box ke andar thori space */
-            border-radius: 5px; /* Gol corners */
+            border-radius: 5px; 
+            
+            /* Button ko input field ke andar adjust kiya */
+            position: absolute;
+            right: 4px; /* Right side se 4px ka gap */
+            top: 50%; /* Vertical center */
+            transform: translateY(-50%); /* Exactly center karne ke liye */
+            height: calc(100% - 8px); /* Height input field jaisi, upar neeche se 4px gap */
+            line-height: 1; /* Text ko center mein rakhne ke liye */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0; 
         }
+
 
         /* Agreement Checkbox */
         .agreement {
@@ -779,6 +801,7 @@
             </form>
         </div>
     </div>
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Basic JavaScript for UI Interaction
@@ -809,7 +832,7 @@
             // === SLIDER JAVASCRIPT END ===
 
 
-            // === (NEW) REGISTRATION PANEL JAVASCRIPT ===
+            // === REGISTRATION PANEL JAVASCRIPT ===
             
             const registerPanel = document.getElementById('register-panel');
             const closeRegisterBtn = document.getElementById('close-register');
