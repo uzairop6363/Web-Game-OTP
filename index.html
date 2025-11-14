@@ -642,6 +642,63 @@
             height: 40px;
             object-fit: contain;
         }
+        
+        
+        /* === (NAYA) CUSTOM ALERT STYLES === */
+        #custom-alert-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Kala background */
+            z-index: 3000;
+            display: none; /* Default mein chupa hua */
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px); /* Peeche har cheez blur */
+        }
+        
+        #custom-alert-overlay.show {
+            display: flex; /* Dikhane ke liye */
+        }
+        
+        #custom-alert-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        #custom-alert-overlay.show #custom-alert-box {
+             transform: scale(1);
+             opacity: 1;
+        }
+
+        #custom-alert-message {
+            font-size: 1em;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        #custom-alert-ok {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 10px 40px;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 500;
+        }
+        /* === (END) CUSTOM ALERT STYLES === */
+
 
     </style>
 </head>
@@ -855,6 +912,7 @@
                 
                 <div class="login-type-tabs">
                     <span class="login-type active">Password Login</span>
+                    <span class="login-type clickable">Code login</span>
                 </div>
                 
                 <div class="input-group">
@@ -883,6 +941,13 @@
                     <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="google-icon clickable">
                 </div>
             </form>
+        </div>
+    </div>
+
+    <div id="custom-alert-overlay">
+        <div id="custom-alert-box">
+            <p id="custom-alert-message"></p>
+            <button id="custom-alert-ok" class="clickable">OK</button>
         </div>
     </div>
 
@@ -953,16 +1018,8 @@
                 this.classList.toggle('fa-eye-slash');
             });
 
-            // Register Form Submit
-            const regForm = document.getElementById('registration-form');
-            regForm.addEventListener('submit', function(e) {
-                e.preventDefault(); 
-                console.log('Registration Form submitted (simulation).');
-                alert('Incorrect OTP');
-            });
 
-
-            // === (NAYA) LOGIN PANEL LOGIC ===
+            // === LOGIN PANEL LOGIC ===
             const closeLoginBtn = document.getElementById('close-login');
             const openLoginBtns = document.querySelectorAll('.btn.login, .login-trigger'); 
 
@@ -1000,16 +1057,8 @@
                 this.classList.toggle('fa-eye-slash');
             });
 
-            // Login Form Submit
-            const loginForm = document.getElementById('login-form');
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault(); 
-                console.log('Login Form submitted (simulation).');
-                alert('Wrong Password or Username');
-            });
-
-
-            // === (NAYA) PANEL SWITCHING LOGIC ===
+            
+            // === PANEL SWITCHING LOGIC ===
             const regPanelLoginTab = document.getElementById('reg-panel-login-tab');
             const loginPanelRegTab = document.getElementById('login-panel-reg-tab');
 
@@ -1023,6 +1072,53 @@
                 e.stopPropagation();
                 closeLoginPanel(); 
                 openRegisterPanel();  
+            });
+            
+            
+            // === (NAYA) CUSTOM ALERT LOGIC ===
+            const alertOverlay = document.getElementById('custom-alert-overlay');
+            const alertMessage = document.getElementById('custom-alert-message');
+            const alertOkBtn = document.getElementById('custom-alert-ok');
+
+            // Function to show the custom alert
+            function showCustomAlert(message) {
+                alertMessage.textContent = message;
+                alertOverlay.classList.add('show');
+            }
+
+            // Function to hide the custom alert
+            function hideCustomAlert() {
+                alertOverlay.classList.remove('show');
+            }
+
+            // Add click listeners to close the alert
+            alertOkBtn.addEventListener('click', hideCustomAlert);
+            alertOverlay.addEventListener('click', function(e) {
+                // Sirf background par click karne se band ho
+                if (e.target === alertOverlay) {
+                    hideCustomAlert();
+                }
+            });
+
+
+            // === (TABDEEL SHUDA) FORM SUBMIT LOGIC ===
+            
+            // Register Form Submit
+            const regForm = document.getElementById('registration-form');
+            regForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Form ko submit hone se rokein
+                console.log('Registration Form submitted (simulation).');
+                // alert('Incorrect OTP'); // <-- YEH HATA DIYA
+                showCustomAlert('Incorrect OTP'); // <-- YEH ADD KIYA
+            });
+
+            // Login Form Submit
+            const loginForm = document.getElementById('login-form');
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Form ko submit hone se rokein
+                console.log('Login Form submitted (simulation).');
+                // alert('Wrong Password or Username'); // <-- YEH HATA DIYA
+                showCustomAlert('Wrong Password or Username'); // <-- YEH ADD KIYA
             });
 
         });
