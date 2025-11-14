@@ -46,7 +46,7 @@
             cursor: pointer;
         }
 
-        /* === (NAYA) SPLASH SCREEN STYLES === */
+        /* --- SPLASH SCREEN STYLES --- */
         #splash-screen {
             position: fixed;
             top: 0;
@@ -71,11 +71,10 @@
             pointer-events: none; /* Click disable karein */
         }
         
-        /* === (NAYA) MAIN CONTENT (Initially Hidden) === */
+        /* --- MAIN CONTENT (Initially Hidden) --- */
         #main-content {
             display: none; /* Shuru mein chupa hua */
         }
-        /* === (END) NAYE STYLES === */
 
 
         /* --- Header Section --- */
@@ -566,7 +565,7 @@
             flex-shrink: 0; 
         }
 
-        /* --- (NAYA) LOGIN-SPECIFIC STYLES --- */
+        /* --- LOGIN-SPECIFIC STYLES --- */
         .form-notice-login {
             font-size: 0.8em;
             color: var(--text-light);
@@ -655,7 +654,6 @@
             font-size: 0.9em;
         }
         
-        /* (NAYA) Login links ke liye green color */
         .extra-links.login-links a {
             color: var(--primary-green);
         }
@@ -729,6 +727,60 @@
             font-size: 1em;
             font-weight: 500;
         }
+
+        /* === (NAYA) FLOATING WIDGETS STYLES === */
+        #floating-widgets-container {
+            position: fixed;
+            bottom: 70px; /* 60px footer + 10px gap */
+            right: 10px;
+            z-index: 1001; /* Above content, below popups */
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .floating-widget {
+            position: relative;
+            width: 70px; /* Chhota size */
+            height: 70px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .floating-widget:hover {
+            transform: scale(1.1);
+        }
+        
+        .floating-widget img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        /* Box ke liye alag size */
+        .floating-widget.box {
+            width: 100px; /* Thora chora */
+            height: auto; /* Height auto */
+        }
+
+        .widget-close-btn {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2; /* Image ke oopar */
+            line-height: 1;
+        }
+        /* === (END) FLOATING WIDGETS STYLES === */
 
 
     </style>
@@ -852,7 +904,23 @@
             <div class="nav-item clickable login-trigger"><i class="fas fa-sign-in-alt"></i><span>Login</span></div>
         </footer>
     
-    </div> <div id="register-panel">
+    </div> <div id="floating-widgets-container">
+        <div class="floating-widget box" id="widget-invite">
+            <div class="widget-close-btn clickable">&times;</div>
+            <img src="images/widget_invite_box.png" alt="Invite Box" class="clickable">
+        </div>
+        
+        <div class="floating-widget" id="widget-wheel-1">
+            <div class="widget-close-btn clickable">&times;</div>
+            <img src="images/widget_wheel_1.png" alt="Wheel 1" class="clickable">
+        </div>
+        
+        <div class="floating-widget" id="widget-wheel-2">
+            <div class="widget-close-btn clickable">&times;</div>
+            <img src="images/widget_wheel_2.png" alt="Wheel 2" class="clickable">
+        </div>
+    </div>
+    <div id="register-panel">
         <header class="register-header">
             <i class="fas fa-arrow-left back-btn clickable" id="close-register"></i>
             <div class="tabs">
@@ -993,25 +1061,18 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // === (NAYA) SPLASH SCREEN LOGIC ===
+            // === SPLASH SCREEN LOGIC ===
             const splash = document.getElementById('splash-screen');
             const main = document.getElementById('main-content');
 
             function showApp() {
-                // Main content ko dikhayein
                 main.style.display = 'block';
-                
-                // Splash screen ko fade out karein
                 splash.classList.add('hidden');
-                
-                // Fade out animation (500ms) ke baad splash screen ko remove karein
                 setTimeout(() => {
                     splash.style.display = 'none';
-                }, 500); // Yeh time CSS ke transition se match hona chahiye
+                }, 500); 
             }
-
-            // 3 second (3000ms) ke baad app dikhayein
-            setTimeout(showApp, 3000);
+            setTimeout(showApp, 3000); // 3 second delay
             // === (END) SPLASH SCREEN LOGIC ===
 
 
@@ -1178,6 +1239,22 @@
                 console.log('Login Form submitted (simulation).');
                 showCustomAlert('Wrong Password or Username');
             });
+
+            // === (NAYA) FLOATING WIDGETS LOGIC ===
+            const widgetCloseButtons = document.querySelectorAll('.widget-close-btn');
+            
+            widgetCloseButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Parent widget par click na ho
+                    
+                    // Parent widget (e.g., .floating-widget) ko hide karein
+                    const widget = e.currentTarget.parentElement;
+                    if (widget) {
+                        widget.style.display = 'none';
+                    }
+                });
+            });
+            // === (END) FLOATING WIDGETS LOGIC ===
 
         });
     </script>
