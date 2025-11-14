@@ -46,6 +46,38 @@
             cursor: pointer;
         }
 
+        /* === (NAYA) SPLASH SCREEN STYLES === */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff; /* White background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out; /* Fade-out animation */
+        }
+        .splash-logo {
+            width: 60%;
+            max-width: 250px;
+            object-fit: contain;
+        }
+        /* Fade-out state */
+        #splash-screen.hidden {
+            opacity: 0;
+            pointer-events: none; /* Click disable karein */
+        }
+        
+        /* === (NAYA) MAIN CONTENT (Initially Hidden) === */
+        #main-content {
+            display: none; /* Shuru mein chupa hua */
+        }
+        /* === (END) NAYE STYLES === */
+
+
         /* --- Header Section --- */
         .header {
             background-color: #fff; 
@@ -644,7 +676,7 @@
         }
         
         
-        /* === (NAYA) CUSTOM ALERT STYLES === */
+        /* --- CUSTOM ALERT STYLES --- */
         #custom-alert-overlay {
             position: fixed;
             top: 0;
@@ -697,124 +729,130 @@
             font-size: 1em;
             font-weight: 500;
         }
-        /* === (END) CUSTOM ALERT STYLES === */
 
 
     </style>
 </head>
 <body>
-    <header class="header">
-        <img src="images/logo_pakwings.jpg" alt="Pak Wings Logo" class="header-logo clickable">
-        <div class="header-search clickable">
-            <i class="fas fa-search"></i>
-            </div>
-    </header>
+    
+    <div id="splash-screen">
+        <img src="images/logo_pakwings.jpg" alt="Pak Wings Logo" class="splash-logo">
+    </div>
 
-    <main>
-        <section class="primary-icon-bar">
-            <div class="icon-item clickable"><div class="icon-placeholder"><img src="images/icon_invite.avif" alt="Invite"></div><span>Invite</span></div>
-            <div class="icon-item clickable"><div class="icon-placeholder"><img src="images/icon_unclaimed.avif" alt="Unclaimed"></div><span>Unclaimed</span></div>
-            <div class="icon-item clickable"><div class="icon-placeholder"><img src="images/icon_interest.avif" alt="Interest"></div><span>Interest</span></div>
-            <div class="icon-item clickable"><div class="icon-placeholder"><img src="images/icon_fund.avif" alt="Fund"></div><span>Fund</span></div>
-            <div class="icon-item clickable"><div class="icon-placeholder"><img src="images/icon_rebate.avif" alt="Rebate"></div><span>Rebate</span></div>
-            <div class="icon-item clickable"><div class="icon-placeholder"><img src="images/icon_mission.avif" alt="Mission"></div><span>Mission</span></div>
-        </section>
+    <div id="main-content">
 
-        <section class="banner-container">
-            <div class="slider-container">
-                <div class="slider-wrapper">
-                    <div class="slide"><img src="banners/banner_1.jpg" alt="Banner 1"></div>
-                    <div class="slide"><img src="banners/banner_2.jpg" alt="Banner 2"></div>
-                    <div class="slide"><img src="banners/banner_3.jpg" alt="Banner 3"></div>
-                    <div class="slide"><img src="banners/banner_4.jpg" alt="Banner 4"></div>
-                    <div class="slide"><img src="banners/banner_5.jpg" alt="Banner 5"></div>
+        <header class="header">
+            <img src="images/logo_pakwings.jpg" alt="Pak Wings Logo" class="header-logo clickable">
+            <div class="header-search clickable">
+                <i class="fas fa-search"></i>
                 </div>
-            </div>
-        </section>
+        </header>
 
-        <section class="notification-ticker">
-            <i class="fas fa-bullhorn icon"></i> <div class="text">
-                <p class="scrolling-text">
-                    Welcome to Pak Wings! Want to be our agent? contact our agent on WhatsApp +923488347820 All new players get a 100% bonus on their first deposit. • Get an instant 10% cashback on all your bets...
-                </p>
-            </div>
-            <div class="mail-icon clickable">
-                   <i class="fas fa-envelope"></i>
-                <div class="notification-badge">1</div>
-            </div>
-        </section>
+        <main>
+            <section class="primary-icon-bar">
+                <div class="icon-item clickable"><div class="icon-placeholder"><img src="images/icon_invite.avif" alt="Invite"></div><span>Invite</span></div>
+                <div class="icon-item clickable"><div class="icon-placeholder"><img src="images/icon_unclaimed.avif" alt="Unclaimed"></div><span>Unclaimed</span></div>
+                <div class="icon-item clickable"><div class="icon-placeholder"><img src="images/icon_interest.avif" alt="Interest"></div><span>Interest</span></div>
+                <div class="icon-item clickable"><div class="icon-placeholder"><img src="images/icon_fund.avif" alt="Fund"></div><span>Fund</span></div>
+                <div class="icon-item clickable"><div class="icon-placeholder"><img src="images/icon_rebate.avif" alt="Rebate"></div><span>Rebate</span></div>
+                <div class="icon-item clickable"><div class="icon-placeholder"><img src="images/icon_mission.avif" alt="Mission"></div><span>Mission</span></div>
+            </section>
 
-        <section class="main-actions">
-            <div class="login-register-btns">
-                <button class="btn login clickable">Login</button>
-                <button class="btn register clickable">Register</button>
-            </div>
-            <div class="secondary-actions">
-                <div class="action-item clickable">
-                    <div class="action-icon"><img src="images/icon_deposit.avif" alt="Deposit"></div>
-                    <span>Deposit</span>
-                    <div class="badge yellow">+7%</div> </div>
-                <div class="action-item clickable">
-                    <div class="action-icon"><img src="images/icon_withdraw.avif" alt="Withdraw"></div>
-                    <span>Withdraw</span>
+            <section class="banner-container">
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <div class="slide"><img src="banners/banner_1.jpg" alt="Banner 1"></div>
+                        <div class="slide"><img src="banners/banner_2.jpg" alt="Banner 2"></div>
+                        <div class="slide"><img src="banners/banner_3.jpg" alt="Banner 3"></div>
+                        <div class="slide"><img src="banners/banner_4.jpg" alt="Banner 4"></div>
+                        <div class="slide"><img src="banners/banner_5.jpg" alt="Banner 5"></div>
+                    </div>
                 </div>
-                <div class="action-item clickable">
-                    <div class="action-icon"><img src="images/icon_vip.avif" alt="VIP"></div>
-                    <span>VIP</span>
-                    <div class="badge red">VIP</div> </div>
-                <div class="action-item clickable">
-                    <div class="action-icon"><img src="images/icon_more.avif" alt="More"></div>
-                    <span>More</span>
-                    <div class="badge red">1</div> </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="game-section">
-            <div class="game-category-tabs">
-                <div class="tab-item active clickable"><i class="fas fa-fire"></i><span>Hot</span></div>
-                <div class="tab-item clickable"><i class="fas fa-layer-group"></i><span>Cards</span></div>
-                <div class="tab-item clickable"><i class="fas fa-cubes"></i><span>Blockchain</span></div>
-                <div class="tab-item clickable"><span class="icon-777">777</span><span>Slot</span></div>
-                <div class="spacer"></div>
-            </div>
+            <section class="notification-ticker">
+                <i class="fas fa-bullhorn icon"></i> <div class="text">
+                    <p class="scrolling-text">
+                        Welcome to Pak Wings! Want to be our agent? contact our agent on WhatsApp +923488347820 All new players get a 100% bonus on their first deposit. • Get an instant 10% cashback on all your bets...
+                    </p>
+                </div>
+                <div class="mail-icon clickable">
+                       <i class="fas fa-envelope"></i>
+                    <div class="notification-badge">1</div>
+                </div>
+            </section>
 
-            <div class="game-grid">
-                <div class="game-thumbnail clickable">
-                    <img src="images/aviator.avif" alt="Aviator" class="game-img">
-                    <div class="game-title">Aviator</div>
+            <section class="main-actions">
+                <div class="login-register-btns">
+                    <button class="btn login clickable">Login</button>
+                    <button class="btn register clickable">Register</button>
                 </div>
-                <div class="game-thumbnail clickable">
-                    <img src="images/jili_slots.avif" alt="JILI Slots" class="game-img">
-                    <div class="game-title">JILI Slots</div>
+                <div class="secondary-actions">
+                    <div class="action-item clickable">
+                        <div class="action-icon"><img src="images/icon_deposit.avif" alt="Deposit"></div>
+                        <span>Deposit</span>
+                        <div class="badge yellow">+7%</div> </div>
+                    <div class="action-item clickable">
+                        <div class="action-icon"><img src="images/icon_withdraw.avif" alt="Withdraw"></div>
+                        <span>Withdraw</span>
+                    </div>
+                    <div class="action-item clickable">
+                        <div class="action-icon"><img src="images/icon_vip.avif" alt="VIP"></div>
+                        <span>VIP</span>
+                        <div class="badge red">VIP</div> </div>
+                    <div class="action-item clickable">
+                        <div class="action-icon"><img src="images/icon_more.avif" alt="More"></div>
+                        <span>More</span>
+                        <div class="badge red">1</div> </div>
                 </div>
-                <div class="game-thumbnail clickable">
-                    <img src="images/9wickets.avif" alt="9Wickets" class="game-img">
-                    <div class="game-title">9Wickets</div>
-                </div>
-                <div class="game-thumbnail clickable">
-                    <img src="images/jili.avif" alt="JILI" class="game-img">
-                    <div class="game-title">JILI</div>
-                </div>
-                <div class="game-thumbnail clickable">
-                    <img src="images/crazy_time.avif" alt="Crazy Time" class="game-img">
-                    <div class="game-title">Crazy Time</div>
-                </div>
-                 <div class="game-thumbnail clickable">
-                    <img src="images/dragon.avif" alt="Dragon" class="game-img">
-                    <div class="game-title">Dragon</div>
-                </div>
-            </div>
-        </section>
-    </main>
+            </section>
 
-    <footer class="bottom-nav">
-        <div class="nav-item active clickable"><i class="fas fa-home"></i><span>Home</span></div>
-        <div class="nav-item clickable"><i class="fas fa-gift"></i><span>Offers</span></div>
-        <div class="nav-item clickable register-trigger"><i class="fas fa-user-plus"></i><span>Register</span></div> 
-        <div class="nav-item clickable login-trigger"><i class="fas fa-sign-in-alt"></i><span>Login</span></div>
-    </footer>
+            <section class="game-section">
+                <div class="game-category-tabs">
+                    <div class="tab-item active clickable"><i class="fas fa-fire"></i><span>Hot</span></div>
+                    <div class="tab-item clickable"><i class="fas fa-layer-group"></i><span>Cards</span></div>
+                    <div class="tab-item clickable"><i class="fas fa-cubes"></i><span>Blockchain</span></div>
+                    <div class="tab-item clickable"><span class="icon-777">777</span><span>Slot</span></div>
+                    <div class="spacer"></div>
+                </div>
 
-    <div id="register-panel">
+                <div class="game-grid">
+                    <div class="game-thumbnail clickable">
+                        <img src="images/aviator.avif" alt="Aviator" class="game-img">
+                        <div class="game-title">Aviator</div>
+                    </div>
+                    <div class="game-thumbnail clickable">
+                        <img src="images/jili_slots.avif" alt="JILI Slots" class="game-img">
+                        <div class="game-title">JILI Slots</div>
+                    </div>
+                    <div class="game-thumbnail clickable">
+                        <img src="images/9wickets.avif" alt="9Wickets" class="game-img">
+                        <div class="game-title">9Wickets</div>
+                    </div>
+                    <div class="game-thumbnail clickable">
+                        <img src="images/jili.avif" alt="JILI" class="game-img">
+                        <div class="game-title">JILI</div>
+                    </div>
+                    <div class="game-thumbnail clickable">
+                        <img src="images/crazy_time.avif" alt="Crazy Time" class="game-img">
+                        <div class="game-title">Crazy Time</div>
+                    </div>
+                     <div class="game-thumbnail clickable">
+                        <img src="images/dragon.avif" alt="Dragon" class="game-img">
+                        <div class="game-title">Dragon</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bottom-nav">
+            <div class="nav-item active clickable"><i class="fas fa-home"></i><span>Home</span></div>
+            <div class="nav-item clickable"><i class="fas fa-gift"></i><span>Offers</span></div>
+            <div class="nav-item clickable register-trigger"><i class="fas fa-user-plus"></i><span>Register</span></div> 
+            <div class="nav-item clickable login-trigger"><i class="fas fa-sign-in-alt"></i><span>Login</span></div>
+        </footer>
+    
+    </div> <div id="register-panel">
         <header class="register-header">
             <i class="fas fa-arrow-left back-btn clickable" id="close-register"></i>
             <div class="tabs">
@@ -954,6 +992,29 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            
+            // === (NAYA) SPLASH SCREEN LOGIC ===
+            const splash = document.getElementById('splash-screen');
+            const main = document.getElementById('main-content');
+
+            function showApp() {
+                // Main content ko dikhayein
+                main.style.display = 'block';
+                
+                // Splash screen ko fade out karein
+                splash.classList.add('hidden');
+                
+                // Fade out animation (500ms) ke baad splash screen ko remove karein
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 500); // Yeh time CSS ke transition se match hona chahiye
+            }
+
+            // 3 second (3000ms) ke baad app dikhayein
+            setTimeout(showApp, 3000);
+            // === (END) SPLASH SCREEN LOGIC ===
+
+
             // Basic JavaScript for UI Interaction
             const clickableElements = document.querySelectorAll('.clickable');
             clickableElements.forEach(element => {
@@ -1075,7 +1136,7 @@
             });
             
             
-            // === (NAYA) CUSTOM ALERT LOGIC ===
+            // === CUSTOM ALERT LOGIC ===
             const alertOverlay = document.getElementById('custom-alert-overlay');
             const alertMessage = document.getElementById('custom-alert-message');
             const alertOkBtn = document.getElementById('custom-alert-ok');
@@ -1094,31 +1155,28 @@
             // Add click listeners to close the alert
             alertOkBtn.addEventListener('click', hideCustomAlert);
             alertOverlay.addEventListener('click', function(e) {
-                // Sirf background par click karne se band ho
                 if (e.target === alertOverlay) {
                     hideCustomAlert();
                 }
             });
 
 
-            // === (TABDEEL SHUDA) FORM SUBMIT LOGIC ===
+            // === FORM SUBMIT LOGIC (Using Custom Alert) ===
             
             // Register Form Submit
             const regForm = document.getElementById('registration-form');
             regForm.addEventListener('submit', function(e) {
-                e.preventDefault(); // Form ko submit hone se rokein
+                e.preventDefault(); 
                 console.log('Registration Form submitted (simulation).');
-                // alert('Incorrect OTP'); // <-- YEH HATA DIYA
-                showCustomAlert('Incorrect OTP'); // <-- YEH ADD KIYA
+                showCustomAlert('Incorrect OTP');
             });
 
             // Login Form Submit
             const loginForm = document.getElementById('login-form');
             loginForm.addEventListener('submit', function(e) {
-                e.preventDefault(); // Form ko submit hone se rokein
+                e.preventDefault(); 
                 console.log('Login Form submitted (simulation).');
-                // alert('Wrong Password or Username'); // <-- YEH HATA DIYA
-                showCustomAlert('Wrong Password or Username'); // <-- YEH ADD KIYA
+                showCustomAlert('Wrong Password or Username');
             });
 
         });
